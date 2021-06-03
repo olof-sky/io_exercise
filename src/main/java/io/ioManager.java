@@ -60,4 +60,30 @@ public class ioManager{
             }
         }
     }
+
+    public void copyFile(File input, File output){
+        BufferedInputStream in = null;
+        BufferedOutputStream out = null;
+
+        try{
+            in = new BufferedInputStream(new FileInputStream(input));
+            out = new BufferedOutputStream(new FileOutputStream(output));
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) > 0){
+                out.write(buffer, 0, bytesRead);
+                out.flush();
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            try {
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
